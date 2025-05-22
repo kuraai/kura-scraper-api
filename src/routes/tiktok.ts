@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { scrapeTikTokProfile } from '../services/tiktokScraper';
+import scrapeTikTokProfile from '../services/tiktokScraper' // ✅ CORRECT
 import { analyzeContent } from '../services/openaiService';
 
 const router = Router();
