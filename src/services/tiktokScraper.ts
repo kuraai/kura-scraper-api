@@ -1,5 +1,4 @@
-import TikTokScraper from 'tiktok-scraper'
-
+import scrapeTikTokProfile from '../services/tiktokScraper'
 const scrapeTikTokProfile = async (username: string) => {
   try {
     // Get user profile info (bio, stats)
