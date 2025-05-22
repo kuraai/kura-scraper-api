@@ -1,12 +1,16 @@
-import axios from 'axios';
+import TikTokScraper from 'tiktok-scraper'
 
-export const scrapeTikTokProfile = async (username: string) => {
-  try {
-    const response = await axios.get(`https://www.tiktok.com/@${username}`);
-    // Parse the response to extract necessary data
-    return response.data;
-  } catch (error) {
-    console.error('TikTok scraping error:', error);
-    throw error;
+const scrapeTikTokProfile = async (username: string) => {
+  const user = await TikTokScraper.getUserProfileInfo(username)
+  const { stats, userInfo } = user
+
+  return {
+    username,
+    bio: userInfo.signature,
+    followers: stats.followerCount,
+    following: stats.followingCount,
+    posts: stats.videoCount,
+    captions: [], // You'd need to get videos separately
+    hashtags: [], // Extract from captions or videos
   }
-};
+}

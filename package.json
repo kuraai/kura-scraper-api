@@ -16,7 +16,9 @@
   "dependencies": {
     "axios": "^1.9.0",
     "dotenv": "^16.5.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "instagram-scraper": "^1.0.6",
+    "tiktok-scraper": "^1.4.36"
   },
   "devDependencies": {
     "@types/express": "^5.0.2",
