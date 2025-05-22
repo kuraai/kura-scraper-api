@@ -2,15 +2,22 @@ import TikTokScraper from 'tiktok-scraper'
 
 const scrapeTikTokProfile = async (username: string) => {
   const user = await TikTokScraper.getUserProfileInfo(username)
-  const { stats, userInfo } = user
+  console.log('[TikTok Raw Result]', user)
+
+  // Safely access nested properties (fallbacks in case of missing fields)
+  const bio = user?.user?.signature || ''
+  const followers = user?.stats?.followerCount || 0
+  const following = user?.stats?.followingCount || 0
+  const posts = user?.stats?.videoCount || 0
 
   return {
     username,
-    bio: userInfo.signature,
-    followers: stats.followerCount,
-    following: stats.followingCount,
-    posts: stats.videoCount,
-    captions: [], // You'd need to get videos separately
-    hashtags: [], // Extract from captions or videos
+    bio,
+    followers,
+    following,
+    posts,
+    captions: [],
+    hashtags: [],
   }
 }
+export default scrapeTikTokProfile
