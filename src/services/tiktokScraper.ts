@@ -1,7 +1,7 @@
-import scrapeTikTokProfile from '../services/tiktokScraper'
+import TikTokScraper from 'tiktok-scraper'
+
 const scrapeTikTokProfile = async (username: string) => {
   try {
-    // Get user profile info (bio, stats)
     const profile = await TikTokScraper.getUserProfileInfo(username)
     console.log('[TikTok Profile]', profile)
 
@@ -9,20 +9,19 @@ const scrapeTikTokProfile = async (username: string) => {
     const followers = profile?.stats?.followerCount || 0
     const following = profile?.stats?.followingCount || 0
 
-    // Get latest videos to pull captions and metrics
     const postsData = await TikTokScraper.user(username, { number: 5 })
     const collector = postsData?.collector || []
 
-    const captions = collector.map(post => post.text)
+    const captions = collector.map((post: any) => post.text)
     const hashtags = [
       ...new Set(
-        captions.flatMap(c =>
-          (c.match(/#[a-z0-9_]+/gi) || []).map(h => h.toLowerCase())
+        captions.flatMap((c: any) =>
+          (c.match(/#[a-z0-9_]+/gi) || []).map((h: any) => h.toLowerCase())
         )
       ),
     ]
 
-    const metrics = collector.map(post => ({
+    const metrics = collector.map((post: any) => ({
       caption: post.text,
       likes: post.diggCount,
       comments: post.commentCount,
